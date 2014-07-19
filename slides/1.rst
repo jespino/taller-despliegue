@@ -1,0 +1,70 @@
+Bloque 1, arrancar django en nuestra maquina:
+
+Explicacion 1:
+
+Como copiamos nuestro codigo al servidor en Kaleidos. Git.
+
+Paso 1:
+
+Clonamos el repositorio de nuestro proyecto django
+
+$ git clone http://github.com/jespino/taller-despliegue
+
+Explicacion 2:
+
+Como instalamos las bibliotecas de python en Kaleidos. virtualenv + virtualenvwrapper.
+
+Paso 2:
+
+Creamos un virtualenv con virtualenvwrapper para poder instalar nuestras bibliotecas.
+
+Explicacion 3:
+
+Como explicitamos los requisitos en Kaleidos. requirements.txt
+Algunos requisitos tipicos necesitan ciertas bibliotecas (pillow, psycopg...)
+
+Paso 3:
+
+Instalamos nuestros requisitos a nivel de sistema en principio postgresql y python.
+
+$ apt-get install python3 postgresql-9.3 virtualenvwrapper
+
+Instalamos los requisitos de nuestra aplicación.
+
+Esto puede fallar para psycopg, si falla instalamos libpq-dev
+
+$ pip install -r requirements.txt
+
+Explicacion 4:
+
+Mientras desarrollamos ejecutamos nuestro codigo con el servidor de desarrollo de django.
+
+Paso 4:
+
+$ python manage.py runserver
+
+Explicación 5:
+
+Cuando pasamos a producción ejecutamos nuestro codigo con un servidor
+"Production Ready", en nuestro caso gunicorn.
+
+Existen otras opciones, de hecho durante un tiempo usamos uwsgi pero nos dio
+algunos problemas de estabilidad y nos pasamos a gunicorn.
+
+Paso 5:
+
+Arrancamos nuestro proyecto con gunicorn
+
+$ gunicorn demo-app.wsgi
+
+Explicacion 6:
+
+Que tenemos hasta ahora? Una aplicación django sirviendose en el puerto 8000 a
+traves de un gunicorn.
+
+Esto podríamos dejarlo funcionando en un puerto 80 directamente, pero no es lo
+ideal, lo ideal es dejarlo detras de un servidor web que nos de mayor potencia
+y flexibilidad. En nuestro caso este servidor es Nginx.
+
+Además usaremos el nginx para servir los ficheros estaticos y los subidos por
+los usuarios.
