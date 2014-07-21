@@ -23,11 +23,13 @@ Explicacion 3:
 Como explicitamos los requisitos en Kaleidos. requirements.txt
 Algunos requisitos tipicos necesitan ciertas bibliotecas (pillow, psycopg...)
 
+$ mkvirtualenv -p /usr/bin/python3 demo
+
 Paso 3:
 
 Instalamos nuestros requisitos a nivel de sistema en principio postgresql y python.
 
-$ apt-get install python3 postgresql-9.3 virtualenvwrapper
+$ apt-get install python3 postgresql-9.3 virtualenvwrapper git
 
 Instalamos los requisitos de nuestra aplicación.
 
