@@ -1,9 +1,0 @@
-Bloque 3: Automatización de despliegues con fabric
-
-Una vez tenemos nuestra aplicación desplegada en el servidor, necesitamos actualizarla.
-
-Nuestra preferencia es el uso de herramientas automaticas para la actualización
-ya que nos permiten ser homogenos en los pasos y no cometer errores debidos a
-la rutina.
-
-En este paso escribiremos un script de fabric para desplegar sobre el servidor que hemos montado.

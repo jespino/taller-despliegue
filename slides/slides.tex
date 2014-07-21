@@ -1,0 +1,182 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+
+\mode<presentation>
+\usetheme{Madrid}
+\usecolortheme[RGB={128,0,0}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+\setbeamercovered{transparent}
+
+\title{Taller: Desplegando Django}
+\author{Jesús Espino García}
+\date{21 de Julio de 2014}
+\subject{Taller: Desplegando Django}
+
+\institute[Kaleidos]{\includegraphics[height=1.5cm]{kaleidos}}
+
+\begin{document}
+
+  \frame{\maketitle}
+
+  \section{Parte I: Despliegue en local}
+
+  \begin{frame}{¿Que vamos a hacer?}
+    \begin{itemize}
+      \item Montaremos un entorno local en nuestra maquina.
+      \item Montaremos este entorno en una maquina virtual.
+      \item Desplegaremos ese entorno en la maquina virtual.
+      \item Actualizaremos ese entorno usando fabric.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Instalamos nuestros requisitos de sistemas}
+    \begin{itemize}
+      \item apt-get install python3 postgresql-9.3 virtualenvwrapper git
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Clonamos el repositorio}
+    \begin{itemize}
+        \item Usamos git para ayudar a desplegar el código
+        \item Nos permite ver si a habido cambios en el código fácilmente.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Clonamos el repositorio}
+    \begin{itemize}
+      \item Clonamos el repositorio de github jespino/taller-despliegue
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Creamos un virtualenv}
+    \begin{itemize}
+      \item Usamos virtualenv.
+      \item Nos aisla de las bilbiotecas del sistema.
+      \item Nos permite tener entornos muy dispares.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Creamos un virtualenv}
+    \begin{itemize}
+      \item Instalamos virtualenvwrapper.
+      \item Creamos un virtualenv usando python 3.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Instalamos los requisitos}
+    \begin{itemize}
+      \item Es muy comun usar un fichero requirements.txt
+      \item En este definimos nuestros requisitos.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Instalamos los requisitos}
+    \begin{itemize}
+      \item pip install -r requirements.txt
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Eejecutamos nuestra aplicación}
+    \begin{itemize}
+      \item Mientras desarrollamos usamos el servidor integrado de django.
+      \item Para producción solemos usar gunicorn.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Ejecutamos nuestra aplicación}
+    \begin{itemize}
+      \item Ejecutamos la aplicación con el servidor integrado de django.
+      \item Ejecutamos la aplicación con gunicorn
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{¿Que no hemos hecho?}
+    \begin{itemize}
+      \item Crear la bbdd (syncdb o migrate).
+      \item Cargar fixtures.
+    \end{itemize}
+  \end{frame}
+
+  \section{Parte II: Despliegue en remoto}
+
+  \begin{frame}{Arrancar la maquina virtual}
+    \begin{itemize}
+      \item En Kaleidos solemos desplegar en ubuntu server.
+      \item Copiamos la maquina virtual.
+      \item Le configuramos la red y la memoria.
+      \item Instalamos OpenSSH en la maquina virtual.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Preparamos nuestro servidor}
+    \begin{itemize}
+      \item Creamos un usario para desplegar el proyecto.
+      \item Montamos el entorno como en la Parte I.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Arrancar nuestro servicio}
+    \begin{itemize}
+      \item Configuramos supervisor para que arranque gunicorn por nosotros.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Lo colocamos detras de un nginx}
+    \begin{itemize}
+      \item Configuramos el nginx para que haga de proxy
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Servimos los estaticos y medias con nginx}
+    \begin{itemize}
+      \item Configuramos el nginx para que sirva estaticos y medias.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Usamos socket unix entre nginx y gunicorn}
+    \begin{itemize}
+      \item Configuramos el gunicorn para que sirva en un socket unix.
+      \item Configuramos el nginx para que haga proxy del socket unix.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Configuramos nuestro servicio de correo}
+    \begin{itemize}
+      \item Instalamos y configuramos postfix.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Configuramos celery}
+    \begin{itemize}
+      \item Instalamos RabbitMQ.
+      \item Configuramos el celery en el supervisor.
+    \end{itemize}
+  \end{frame}
+
+  \section{Parte III: Despliegue automatico}
+
+  \begin{frame}{Desplegamos con fabric}
+    \begin{itemize}
+      \item Actualizamos automaticamente para evitar errores.
+      \item Y por ahorrar tiempo.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Desplegamos con fabric}
+    \begin{itemize}
+      \item Creamos un script de fabric para actualizar.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\begin{center}Fin\end{center}}
+    \begin{center}
+      \includegraphics[height=3cm]{kaleidos}
+    \end{center}
+  \end{frame}
+
+\end{document}
